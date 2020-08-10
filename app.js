@@ -48,7 +48,7 @@ const jwtGuard = () => {
 app.use(bodyParser());
 
 app.get("/", function (req, res) {
-  res.send();
+  res.send("JWT Example");
 });
 
 app.post("/login", (req, res) => {
@@ -57,6 +57,11 @@ app.post("/login", (req, res) => {
   const user = dbMock.find(
     (user) => (user.email === email) & (user.pwd === pwd)
   );
+
+  if (!user) {
+    res.status(401).send();
+    return;
+  }
 
   const token = jwt.sign({ email: user.email }, secretKey, {
     expiresIn: "1h",
