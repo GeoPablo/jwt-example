@@ -67,7 +67,7 @@ app.post("/login", (req, res) => {
     expiresIn: "1h",
   });
 
-  res.send(token);
+  res.json({ token });
 });
 
 app.get("/protected", jwtGuard(), (req, res) => {
